@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 // importing components
 import Header from "../components/header";
+import DeviceStatus from "../components/device-status";
 
 // importing styled components
 import * as S from "../components/styled-components";
@@ -14,6 +15,12 @@ const HomeScreen = () => {
 	return (
 		<S.OuterContainer>
 			<Header />
+			<DeviceStatus
+				name="Tyto Care"
+				batteryPercent={100}
+				BTStatus="Connected"
+				marginTop={15}
+			/>
 		</S.OuterContainer>
 	);
 };

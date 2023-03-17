@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({});
 const HeaderContainer = styled.View`
 	width: 100%;
 	height: ${responsiveHeight(5)}px;
-	padding-left: ${responsiveWidth(3)}px;
-	padding-right: ${responsiveWidth(3)}px;
+	padding-left: 10px;
+	padding-right: 20px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
