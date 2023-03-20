@@ -10,6 +10,10 @@ import LoginScreen from "./src/screens/login-screen";
 import SignupScreen from "./src/screens/signup-screen";
 import SearchProviderScreen from "./src/screens/search-provider-screen";
 import HomeScreen from "./src/screens/home-screen";
+import AppointmentScreen from "./src/screens/appointment-screen";
+import PaymentPlanScreen from "./src/screens/payment-plan-screen";
+import PaymentMethodScreen from "./src/screens/payment-method-screen";
+import VideoCallScreen from "./src/screens/video-call-screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +22,7 @@ export default function App() {
 		<Provider store={store}>
 			<NavigationContainer>
 				<Stack.Navigator
-					initialRouteName="HomeScreen"
+					initialRouteName="VideoCallScreen"
 					screenOptions={{
 						headerShown: false,
 					}}>
@@ -33,6 +37,22 @@ export default function App() {
 						component={SearchProviderScreen}
 					/>
 					<Stack.Screen name="HomeScreen" component={HomeScreen} />
+					<Stack.Screen
+						name="AppointmentScreen"
+						component={AppointmentScreen}
+					/>
+					<Stack.Screen
+						name="PaymentPlanScreen"
+						component={PaymentPlanScreen}
+					/>
+					<Stack.Screen
+						name="PaymentMethodScreen"
+						component={PaymentMethodScreen}
+					/>
+					<Stack.Screen
+						name="VideoCallScreen"
+						component={VideoCallScreen}
+					/>
 				</Stack.Navigator>
 			</NavigationContainer>
 		</Provider>

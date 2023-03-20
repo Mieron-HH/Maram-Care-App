@@ -7,7 +7,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import {
 	percentageCalculation,
 	responsiveHeight,
-	responsiveWidth,
 } from "../services/dimensions";
 
 const Appointments = ({ marginTop = 0 }) => {
@@ -112,6 +111,7 @@ const DoctorInfoContainer = styled.View`
 const DoctorImageContainer = styled.View`
 	width: 18%;
 	height: 100%;
+	background-color: white;
 `;
 
 const DoctorImage = styled.Image`
@@ -134,7 +134,7 @@ const ScheduleDateContainer = styled.View`
 	height: 28%;
 	margin-left: 25%;
 	padding-left: 20px;
-	background-color: #815ef6;
+	background-color: #7234f8;
 	border-radius: 50%;
 	display: flex;
 	flex-direction: row;

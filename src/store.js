@@ -7,6 +7,7 @@ import SearchProviderSlice from "./slices/search-provider-slice";
 import UserRegistrationSlice from "./slices/user-registration-slice";
 import NavigationBarSlice from "./slices/navigation-bar-slice";
 import CategorySlice from "./slices/category-slice";
+import PaymentSlice from "./slices/payment-slice";
 
 export const store = configureStore({
 	reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
 		UserRegistration: UserRegistrationSlice,
 		NavigationBar: NavigationBarSlice,
 		Category: CategorySlice,
+		Payment: PaymentSlice,
 	},
 });

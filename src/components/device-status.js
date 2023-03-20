@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
 const DeviceInfoContainer = styled.View`
 	width: ${percentageCalculation(350, 115)}px;
 	height: ${responsiveHeight(9)}px;
+	background-color: white;
 	border-radius: 28%;
 	display: flex;
 	flex-direction: row;

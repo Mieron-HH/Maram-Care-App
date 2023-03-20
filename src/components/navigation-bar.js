@@ -51,7 +51,9 @@ const NavigationBar = () => {
 
 	return (
 		<NavigationBarContainer style={styles.boxShadow}>
-			<NavigationBarIconContainer onPress={() => handleNavbarPress("home")}>
+			<NavigationBarIconContainer
+				onPress={() => handleNavbarPress("home")}
+				style={styles.MarginRight}>
 				<Icon
 					style={[
 						styles.navigationIcon,
@@ -67,7 +69,8 @@ const NavigationBar = () => {
 				</NavigationBarName>
 			</NavigationBarIconContainer>
 			<NavigationBarIconContainer
-				onPress={() => handleNavbarPress("schedule")}>
+				onPress={() => handleNavbarPress("schedule")}
+				style={[styles.MarginRight, styles.MarginLeft]}>
 				<CalendarIcon
 					color={scheduleNavbarActive ? "#66dae0" : "#cfd4d0"}
 					size={25}
@@ -79,7 +82,8 @@ const NavigationBar = () => {
 				</NavigationBarName>
 			</NavigationBarIconContainer>
 			<NavigationBarIconContainer
-				onPress={() => handleNavbarPress("device")}>
+				onPress={() => handleNavbarPress("device")}
+				style={[styles.MarginRight, styles.MarginLeft]}>
 				<Icon
 					style={[
 						styles.navigationIcon,
@@ -95,7 +99,8 @@ const NavigationBar = () => {
 				</NavigationBarName>
 			</NavigationBarIconContainer>
 			<NavigationBarIconContainer
-				onPress={() => handleNavbarPress("profile")}>
+				onPress={() => handleNavbarPress("profile")}
+				style={styles.MarginLeft}>
 				<UserImage
 					style={{ resizeMode: "contain" }}
 					source={require("../../assets/user_image.png")}
@@ -122,6 +127,12 @@ const styles = StyleSheet.create({
 		width: "50%",
 		textAlign: "center",
 	},
+	MarginRight: {
+		marginRight: 10,
+	},
+	MarginLeft: {
+		marginLeft: 10,
+	},
 });
 
 const NavigationBarContainer = styled.View`
@@ -133,15 +144,15 @@ const NavigationBarContainer = styled.View`
 	border-top-right-radius: 8%;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: center;
 	align-items: flex-start;
 	position: absolute;
 	bottom: 0;
 `;
 
 const NavigationBarIconContainer = styled.TouchableOpacity`
-	width: 20%;
-	height: 60%;
+	width: ${responsiveHeight(9.5)}px;
+	height: 65%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -157,5 +168,4 @@ const NavigationBarName = styled.Text`
 const UserImage = styled.Image`
 	width: 35px;
 	height: 35px;
-	margin-top: 2px;
 `;
