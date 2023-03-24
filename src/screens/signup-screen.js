@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import { StyleSheet } from "react-native";
+import React from "react";
 import { useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -13,9 +12,6 @@ import CountryForm from "../navigations/Signup/country-form";
 import StateForm from "../navigations/Signup/country-state-form";
 import InsuranceProviderForm from "../navigations/Signup/insurance-provider-form";
 import UserRegistrationForm from "../navigations/Signup/user-registration-form";
-
-// importing helper functions
-import { responsiveHeight } from "../services/dimensions";
 
 // importing states
 import {

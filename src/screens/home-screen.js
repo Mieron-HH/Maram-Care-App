@@ -1,7 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 import styled from "styled-components";
+import { showMessage } from "react-native-flash-message";
+
+// importing states and actions
+import {
+	selectUserDataFetched,
+	setCurrentUser,
+	setUserDataFetched,
+} from "../slices/common-slice";
 
 // importing components
 import Header from "../components/header";
@@ -16,9 +26,48 @@ import * as S from "../components/styled-components";
 import { responsiveHeight } from "../services/dimensions";
 
 const HomeScreen = () => {
+	const dispatch = useDispatch();
 	const navigator = useNavigation();
 
-	return (
+	const userDataFetched = useSelector(selectUserDataFetched);
+
+	useEffect(() => {
+		console.log;
+		if (!userDataFetched) authUser();
+	}, []);
+
+	const authUser = async () => {
+		await axios
+			.get("http://192.168.100.167:3000/api/user/currentUser")
+			.then((result) => {
+				if (result.data.currentUser === null)
+					navigator.replace("LoginScreen");
+				else getUserInfo();
+			})
+			.catch((error) => {
+				console.log(error);
+				navigator.replace("LoginScreen");
+			});
+	};
+
+	const getUserInfo = async () => {
+		await axios
+			.get("http://192.168.100.167:3000/api/user/getInfo")
+			.then((result) => {
+				dispatch(setCurrentUser(result.data));
+				dispatch(setUserDataFetched(true));
+			})
+			.catch((error) => {
+				showMessage({
+					message: error.response.data.errors[0].message,
+					description: "Authentication Error",
+					type: "danger",
+				});
+				navigator.replace("LoginScreen");
+			});
+	};
+
+	return userDataFetched ? (
 		<S.OuterContainer>
 			<Header />
 
@@ -44,6 +93,8 @@ const HomeScreen = () => {
 
 			<NavigationBar />
 		</S.OuterContainer>
+	) : (
+		<></>
 	);
 };
 

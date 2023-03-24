@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -18,7 +18,7 @@ import {
 } from "../slices/navigation-bar-slice.js";
 
 // importing helper functions
-import { responsiveHeight, responsiveWidth } from "../services/dimensions";
+import { responsiveHeight } from "../services/dimensions";
 
 // importing sub-components
 import CalendarIcon from "../sub-components/calendar-icon";
@@ -26,6 +26,7 @@ import CalendarIcon from "../sub-components/calendar-icon";
 const NavigationBar = () => {
 	const dispatch = useDispatch();
 	const navigator = useNavigation();
+	const route = useRoute();
 
 	const homeNavbarActive = useSelector(selectHomeNavbarActive);
 	const scheduleNavbarActive = useSelector(selectScheduleNavbarActive);
@@ -35,16 +36,28 @@ const NavigationBar = () => {
 	const handleNavbarPress = (nav_name) => {
 		switch (nav_name) {
 			case "home":
-				dispatch(setHomeNavigationBarActive(true));
+				if (route.name !== "HomeScreen") {
+					navigator.replace("HomeScreen");
+					dispatch(setHomeNavigationBarActive(true));
+				}
 				break;
 			case "schedule":
-				dispatch(setScheduleNavbarActive(true));
+				if (route.name !== "AppointmentScreen") {
+					navigator.replace("AppointmentScreen");
+					dispatch(setScheduleNavbarActive(true));
+				}
 				break;
 			case "device":
-				dispatch(setDeviceNavbarActive(true));
+				if (route.name !== "DeviceScreen") {
+					navigator.replace("DeviceScreen");
+					dispatch(setDeviceNavbarActive(true));
+				}
 				break;
 			case "profile":
-				dispatch(setProfileNavbarActive(true));
+				if (route.name !== "UserProfileScreen") {
+					navigator.replace("UserProfileScreen");
+					dispatch(setProfileNavbarActive(true));
+				}
 				break;
 		}
 	};
@@ -103,7 +116,7 @@ const NavigationBar = () => {
 				style={styles.MarginLeft}>
 				<UserImage
 					style={{ resizeMode: "contain" }}
-					source={require("../../assets/user_image.png")}
+					source={require("../../assets/user_image_rounded.png")}
 				/>
 				<NavigationBarName
 					style={{ color: profileNavbarActive ? "#66dae0" : "#cfd4d0" }}>

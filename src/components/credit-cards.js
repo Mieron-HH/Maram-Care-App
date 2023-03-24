@@ -1,12 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { LinearGradient } from "expo-linear-gradient";
 
 // importing helper functions
-import { responsiveHeight, responsiveWidth } from "../services/dimensions";
+import { responsiveHeight } from "../services/dimensions";
+import { capitalizeWord } from "../services/common";
 
 const CreditCards = () => {
+	const [userCards, setUserCards] = useState([]);
+	useEffect(() => {
+		getUserCards();
+	}, []);
+
+	const getUserCards = () => {
+		axios
+			.get("http://192.168.100.167:3000/api/card/getUserCards")
+			.then((result) => {
+				setUserCards(result.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
 	return (
 		<CreditCardsContainer>
 			<TitleContainer>
@@ -14,47 +32,77 @@ const CreditCards = () => {
 					Payment Option
 				</Text>
 			</TitleContainer>
-			<CreditCardsListContainer
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				contentContainerStyle={{
-					justifyContent: "center",
-					alignItems: "center",
-				}}>
-				<CreditCard>
+			{userCards.length !== 0 ? (
+				<CreditCardsListContainer
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					contentContainerStyle={{
+						justifyContent: "center",
+						alignItems: "center",
+					}}>
+					{userCards.map((card) => {
+						return (
+							<CreditCard key={card.id} style={styles.boxShadow}>
+								<LinearGradient
+									style={styles.LinearGradientStyle}
+									colors={[
+										"#9669fa",
+										"#8250fa",
+										"#783cfa",
+										"#783cfa",
+										"#498fc4",
+										"#498fc4",
+										"#7cd9cf",
+										"#6473e6",
+										"#5f7ce6",
+									]}
+									start={{ x: 0, y: 0 }}
+									end={{ x: 0.4, y: 1 }}
+								/>
+								<CardIdentifierImageContainer>
+									<CardIdentifierImage
+										style={{ resizeMode: "cover" }}
+										source={require("../../assets/credit_card_identifier.png")}
+									/>
+								</CardIdentifierImageContainer>
+								<CardInfoContainer>
+									<CardInfoText>
+										{capitalizeWord(
+											card.cardHolderName.split(" ")[0]
+										)}{" "}
+										{capitalizeWord(
+											card.cardHolderName.split(" ")[1]
+										)}
+									</CardInfoText>
+									<CardInfoText>{card.expiryDate}</CardInfoText>
+								</CardInfoContainer>
+								<CardNumberContainer>
+									<CardNumberText>
+										{card.cardNumber.slice(0, 4).split("").join(" ")}
+									</CardNumberText>
+									<CardNumberText>* * * * * * * * *</CardNumberText>
+									<CardNumberText>
+										{card.cardNumber
+											.slice(12, 16)
+											.split("")
+											.join(" ")}
+									</CardNumberText>
+								</CardNumberContainer>
+							</CreditCard>
+						);
+					})}
+				</CreditCardsListContainer>
+			) : (
+				<NoCreditCard>
 					<LinearGradient
 						style={styles.LinearGradientStyle}
-						colors={[
-							"#9669fa",
-							"#8250fa",
-							"#783cfa",
-							"#783cfa",
-							"#498fc4",
-							"#498fc4",
-							"#7cd9cf",
-							"#6473e6",
-							"#5f7ce6",
-						]}
+						colors={["#555", "#777", "#555", "#555", "#667", "#555"]}
 						start={{ x: 0, y: 0 }}
 						end={{ x: 0.4, y: 1 }}
 					/>
-					<CardIdentifierImageContainer>
-						<CardIdentifierImage
-							style={{ resizeMode: "cover" }}
-							source={require("../../assets/credit_card_identifier.png")}
-						/>
-					</CardIdentifierImageContainer>
-					<CardInfoContainer>
-						<CardInfoText>Azhar Dwi</CardInfoText>
-						<CardInfoText>12/24</CardInfoText>
-					</CardInfoContainer>
-					<CardNumberContainer>
-						<CardNumberText>1 2 3 4</CardNumberText>
-						<CardNumberText>* * * * * * * * *</CardNumberText>
-						<CardNumberText>2 1 1 5</CardNumberText>
-					</CardNumberContainer>
-				</CreditCard>
-			</CreditCardsListContainer>
+					<NoCreditCardText>No cards saved</NoCreditCardText>
+				</NoCreditCard>
+			)}
 		</CreditCardsContainer>
 	);
 };
@@ -62,6 +110,14 @@ const CreditCards = () => {
 export default CreditCards;
 
 const styles = StyleSheet.create({
+	boxShadow: {
+		shadowColor: "#171717",
+		shadowOffset: { width: 1, height: 2 },
+		shadowOpacity: 0.3,
+		shadowRadius: 3,
+		borderColor: "#f0f2f2",
+		borderWidth: 0.5,
+	},
 	LinearGradientStyle: {
 		width: "100%",
 		height: "100%",
@@ -103,6 +159,23 @@ const CreditCard = styled.View`
 	justify-content: flex-start;
 	align-items: center;
 	position: relative;
+`;
+
+const NoCreditCard = styled.View`
+	width: 95%;
+	height: 85%;
+	background-color: cyan;
+	border-radius: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+`;
+
+const NoCreditCardText = styled.Text`
+	font-size: 22px;
+	font-weight: 600;
+	color: white;
 `;
 
 const CardIdentifierImageContainer = styled.View`

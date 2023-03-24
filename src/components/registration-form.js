@@ -130,7 +130,7 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 		};
 		await axios.request(options).catch((err) => {
 			console.log(err.response.data.errors[0]);
-			result = err.response.data.errors[0].msg;
+			result = err.response.data.errors[0].message;
 			dispatch(setUserInfoValid(false));
 		});
 

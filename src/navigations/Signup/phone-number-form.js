@@ -44,7 +44,7 @@ const PhoneNumberForm = () => {
 			})
 			.catch((error) => {
 				dispatch(
-					setPhoneNumberErrorMessage(error.response.data.errors[0].msg)
+					setPhoneNumberErrorMessage(error.response.data.errors[0].message)
 				);
 				dispatch(setPhoneNumberValid(false));
 			});

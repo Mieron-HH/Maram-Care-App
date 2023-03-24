@@ -1,27 +1,53 @@
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+// importing states and actions
+import {
+	selectCurrentUser,
+	selectUserDataFetched,
+} from "../slices/common-slice";
+
 // importing helper functions
-import { responsiveHeight, responsiveWidth } from "../services/dimensions";
+import { responsiveHeight } from "../services/dimensions";
+import { capitalizeWord } from "../services/common";
 
 const Header = () => {
-	return (
+	const dispatch = useDispatch();
+	const navigator = useNavigation();
+
+	const userDataFetched = useSelector(selectUserDataFetched);
+	const currentUser = useSelector(selectCurrentUser);
+
+	useEffect(() => {
+		if (currentUser === null && userDataFetched)
+			navigator.replace("LoginScreen");
+	}, [currentUser]);
+
+	return userDataFetched ? (
 		<HeaderContainer>
 			<UserContainer>
 				<UserImageContainer>
 					<UserImage
 						style={{ resizeMode: "contain" }}
-						source={require("../../assets/user_image.png")}
+						source={require("../../assets/user_image_rounded.png")}
 					/>
 				</UserImageContainer>
-				<UserName>Hello Alii</UserName>
+				<UserName>
+					Hello{" "}
+					{currentUser !== null &&
+						capitalizeWord(currentUser.fullName.split(" ")[0])}
+				</UserName>
 			</UserContainer>
 			<NotificationBellContainer>
-				<Icon name="bell" size={18} color="purple" />
+				<Icon name="bell" size={18} color="#2e1295" />
 			</NotificationBellContainer>
 		</HeaderContainer>
+	) : (
+		<></>
 	);
 };
 

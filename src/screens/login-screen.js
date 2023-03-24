@@ -1,8 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet } from "react-native";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
+import { showMessage } from "react-native-flash-message";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+// importing states and actions
+import { setCurrentUser } from "../slices/common-slice";
+import { setHomeNavigationBarActive } from "../slices/navigation-bar-slice";
 
 // importing components
 import CompanyLogo from "../components/company-logo";
@@ -17,7 +25,34 @@ import {
 } from "../services/dimensions";
 
 const LoginScreen = () => {
+	const dispatch = useDispatch();
 	const navigator = useNavigation();
+
+	const [userEmail, setUserEmail] = useState("");
+	const [userPassword, setUserPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false);
+
+	const handleOnLogin = async (e) => {
+		e.preventDefault();
+
+		await axios
+			.post("http://192.168.100.167:3000/api/user/signin", {
+				email: userEmail.toLowerCase().trim(),
+				password: userPassword,
+			})
+			.then((result) => {
+				dispatch(setCurrentUser(result.data));
+				dispatch(setHomeNavigationBarActive(true));
+				navigator.replace("HomeScreen");
+			})
+			.catch((error) => {
+				showMessage({
+					message: error.response.data.errors[0].message,
+					description: "Login Error",
+					type: "danger",
+				});
+			});
+	};
 
 	return (
 		<S.OuterContainer>
@@ -33,6 +68,8 @@ const LoginScreen = () => {
 				<FormContainer>
 					<TextInputContainer>
 						<StyledTextInput
+							value={userEmail}
+							onChangeText={(value) => setUserEmail(value)}
 							placeholder="Email or username"
 							placeholderTextColor="#8c5cfa"
 						/>
@@ -40,9 +77,20 @@ const LoginScreen = () => {
 
 					<TextInputContainer>
 						<StyledTextInput
+							value={userPassword}
+							onChangeText={(value) => setUserPassword(value)}
 							placeholder="Password"
+							secureTextEntry={!showPassword}
 							placeholderTextColor="#8c5cfa"
 						/>
+
+						<RightIcon onPress={() => setShowPassword(!showPassword)}>
+							{showPassword ? (
+								<Icon name="visibility" size={22} color="gray" />
+							) : (
+								<Icon name="visibility-off" size={22} color="gray" />
+							)}
+						</RightIcon>
 					</TextInputContainer>
 
 					<ForgotPasswordContainer>
@@ -52,7 +100,9 @@ const LoginScreen = () => {
 					</ForgotPasswordContainer>
 
 					<ButtonsContainer>
-						<StyledButton style={{ backgroundColor: "#2dcad0" }}>
+						<StyledButton
+							style={{ backgroundColor: "#2dcad0" }}
+							onPress={handleOnLogin}>
 							<StyledButtonText style={{ color: "white" }}>
 								Login
 							</StyledButtonText>
@@ -113,18 +163,30 @@ const TextInputContainer = styled.View`
 	margin-bottom: 20px;
 	background-color: #f7f7f7;
 	border-radius: 10%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
 `;
 
 const StyledTextInput = styled.TextInput`
-	width: 100%;
+	width: 90%;
 	height: 100%;
 	padding-left: 15px;
 	font-size: 18px;
 	font-weight: 500;
 `;
 
+const RightIcon = styled.TouchableOpacity`
+	width: 10%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 const ForgotPasswordContainer = styled.TouchableOpacity`
-	width: 90%;
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;

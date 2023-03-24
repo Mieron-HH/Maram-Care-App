@@ -1,8 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+
+// importing states and actions
+import {
+	selectApptTime,
+	setApptDate,
+	setApptTime,
+} from "../slices/common-slice.js";
 
 const TimeComponent = () => {
+	const dispatch = useDispatch();
+
+	const apptTime = useSelector(selectApptTime);
+
 	return (
 		<TimeContainer>
 			<HeaderContainer>
@@ -10,32 +22,68 @@ const TimeComponent = () => {
 			</HeaderContainer>
 
 			<TimeListContainer>
-				<Time style={styles.boxShadow}>
+				<Time
+					style={[
+						styles.boxShadow,
+						{
+							backgroundColor:
+								apptTime === "09:00 AM" ? "#7234f8" : "white",
+						},
+					]}
+					onPress={() => {
+						if (apptTime !== "09:00 AM")
+							dispatch(setApptTime("09:00 AM"));
+						else dispatch(setApptTime(""));
+					}}>
 					<Text
 						style={{
 							fontSize: 19,
 							fontWeight: 500,
-							color: "black",
+							color: apptTime === "09:00 AM" ? "white" : "black",
 						}}>
 						09:00 AM
 					</Text>
 				</Time>
-				<Time style={[styles.boxShadow, { backgroundColor: "#7234f8" }]}>
+				<Time
+					style={[
+						styles.boxShadow,
+						{
+							backgroundColor:
+								apptTime === "11:00 AM" ? "#7234f8" : "white",
+						},
+					]}
+					onPress={() => {
+						if (apptTime !== "11:00 AM")
+							dispatch(setApptTime("11:00 AM"));
+						else dispatch(setApptTime(""));
+					}}>
 					<Text
 						style={{
 							fontSize: 19,
 							fontWeight: 500,
-							color: "white",
+							color: apptTime === "11:00 AM" ? "white" : "black",
 						}}>
 						11:00 AM
 					</Text>
 				</Time>
-				<Time style={styles.boxShadow}>
+				<Time
+					style={[
+						styles.boxShadow,
+						{
+							backgroundColor:
+								apptTime === "05:00 PM" ? "#7234f8" : "white",
+						},
+					]}
+					onPress={() => {
+						if (apptTime !== "05:00 PM")
+							dispatch(setApptTime("05:00 PM"));
+						else dispatch(setApptTime(""));
+					}}>
 					<Text
 						style={{
 							fontSize: 19,
 							fontWeight: 500,
-							color: "black",
+							color: apptTime === "05:00 PM" ? "white" : "black",
 						}}>
 						05:00 PM
 					</Text>

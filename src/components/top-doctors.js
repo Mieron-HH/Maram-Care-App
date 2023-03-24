@@ -1,16 +1,45 @@
-import { StyleSheet, Text, Image } from "react-native";
-import React from "react";
-import styled from "styled-components";
+import { StyleSheet, Text } from "react-native";
+import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import styled from "styled-components";
+
+// importing states and actions
+import {
+	selectTopDoctors,
+	setSelectedDoctor,
+	setTopDoctors,
+} from "../slices/common-slice.js";
 
 // importing helper functions
 import {
 	percentageCalculation,
 	responsiveHeight,
 } from "../services/dimensions";
+import { capitalizeWord } from "../services/common";
 
 const TopDoctors = ({ marginTop = 0 }) => {
+	const dispatch = useDispatch();
 	navigator = useNavigation();
+
+	const topDoctors = useSelector(selectTopDoctors);
+
+	useEffect(() => {
+		getTopDoctors();
+	}, []);
+
+	const getTopDoctors = async () => {
+		await axios
+			.get("http://192.168.100.167:3000/api/doctor/getTopDoctors")
+			.then((result) => {
+				dispatch(setTopDoctors(result.data));
+			})
+			.catch((error) => {
+				// handle the error
+				console.log(error);
+			});
+	};
 
 	return (
 		<TopDoctorsContainer style={{ marginTop }}>
@@ -21,59 +50,42 @@ const TopDoctors = ({ marginTop = 0 }) => {
 				horizontal
 				showsHorizontalScrollIndicator={false}
 				contentContainerStyle={{ padding: 5 }}>
-				<DoctorContainer
-					style={styles.boxShadow}
-					onPress={() => navigator.navigate("AppointmentScreen")}>
-					<DoctorImageContainer>
-						<DoctorImage
-							style={{ resizeMode: "cover" }}
-							source={require("../../assets/doctor_2.jpeg")}
-						/>
-					</DoctorImageContainer>
-					<DoctorDetails>
-						<Text
-							style={{ fontSize: 17, fontWeight: 600, color: "#333" }}>
-							Dr. Ahmed Khaled
-						</Text>
-						<Text style={{ fontWeight: 600, color: "#555" }}>
-							General Dentist
-						</Text>
-					</DoctorDetails>
-				</DoctorContainer>
-				<DoctorContainer style={styles.boxShadow}>
-					<DoctorImageContainer>
-						<DoctorImage
-							style={{ resizeMode: "cover" }}
-							source={require("../../assets/doctor_3.jpeg")}
-						/>
-					</DoctorImageContainer>
-					<DoctorDetails>
-						<Text
-							style={{ fontSize: 17, fontWeight: 600, color: "#333" }}>
-							Dr. Britney Smith
-						</Text>
-						<Text style={{ fontWeight: 600, color: "#555" }}>
-							Cardiologist
-						</Text>
-					</DoctorDetails>
-				</DoctorContainer>
-				<DoctorContainer style={styles.boxShadow}>
-					<DoctorImageContainer>
-						<DoctorImage
-							style={{ resizeMode: "cover" }}
-							source={require("../../assets/doctor_4.jpeg")}
-						/>
-					</DoctorImageContainer>
-					<DoctorDetails>
-						<Text
-							style={{ fontSize: 17, fontWeight: 600, color: "#333" }}>
-							Dr. James Anderson
-						</Text>
-						<Text style={{ fontWeight: 600, color: "#555" }}>
-							Neurologists
-						</Text>
-					</DoctorDetails>
-				</DoctorContainer>
+				{topDoctors.length !== 0 &&
+					topDoctors.map(
+						({ id, firstName, lastName, doctorImage, profession }) => {
+							const dataUri = `data:${doctorImage.contentType};base64,${doctorImage.data}`;
+							return (
+								<DoctorContainer
+									style={styles.boxShadow}
+									key={id}
+									onPress={() => {
+										dispatch(setSelectedDoctor(id));
+										navigator.navigate("BookAppointmentScreen");
+									}}>
+									<DoctorImageContainer>
+										<DoctorImage
+											style={{ resizeMode: "cover" }}
+											source={{ uri: dataUri }}
+										/>
+									</DoctorImageContainer>
+									<DoctorDetails>
+										<Text
+											style={{
+												fontSize: 17,
+												fontWeight: 600,
+												color: "#333",
+											}}>
+											Dr. {capitalizeWord(firstName)}{" "}
+											{capitalizeWord(lastName)}
+										</Text>
+										<Text style={{ fontWeight: 600, color: "#555" }}>
+											{profession}
+										</Text>
+									</DoctorDetails>
+								</DoctorContainer>
+							);
+						}
+					)}
 			</DoctorsListContainer>
 		</TopDoctorsContainer>
 	);

@@ -79,6 +79,28 @@ const UserRegistrationSlice = createSlice({
 		setKeyboardDisplayed: (state, action) => {
 			state.keyboardDisplayed = action.payload;
 		},
+		resetRegistrationForm: (state, action) => {
+			state.fullName = action.payload;
+			state.DOB = action.payload;
+			state.phoneNumber = action.payload;
+			state.email = action.payload;
+			state.password = action.payload;
+			state.gender = action.payload;
+			state.city = action.payload;
+			state.address = action.payload;
+
+			state.fullNameErrorMessage = action.payload;
+			state.DOBErrorMessage = action.payload;
+			state.phoneNumberErrorMessage = action.payload;
+			state.emailErrorMessage = action.payload;
+			state.passwordErrorMessage = action.payload;
+			state.genderErrorMessage = action.payload;
+			state.cityErrorMessage = action.payload;
+			state.addressErrorMessage = action.payload;
+
+			state.userInfoValid = false;
+			state.keyboardDisplayed = false;
+		},
 	},
 });
 
@@ -101,6 +123,7 @@ export const {
 	setAddressErrorMessage,
 	setUserInfoValid,
 	setKeyboardDisplayed,
+	resetRegistrationForm,
 } = UserRegistrationSlice.actions;
 
 export const selectFullName = (state) => state.UserRegistration.fullName;

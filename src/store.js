@@ -8,6 +8,9 @@ import UserRegistrationSlice from "./slices/user-registration-slice";
 import NavigationBarSlice from "./slices/navigation-bar-slice";
 import CategorySlice from "./slices/category-slice";
 import PaymentSlice from "./slices/payment-slice";
+import CommonSlice from "./slices/common-slice";
+import HealthProfileSlice from "./slices/health-profile-slice";
+import CreditCardSlice from "./slices/credit-card-slice";
 
 export const store = configureStore({
 	reducer: {
@@ -18,5 +21,8 @@ export const store = configureStore({
 		NavigationBar: NavigationBarSlice,
 		Category: CategorySlice,
 		Payment: PaymentSlice,
+		Common: CommonSlice,
+		HealthProfile: HealthProfileSlice,
+		CreditCard: CreditCardSlice,
 	},
 });

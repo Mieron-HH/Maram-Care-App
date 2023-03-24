@@ -22,6 +22,7 @@
     "react-native": "0.71.3",
     "react-native-calendars": "^1.1294.0",
     "react-native-countries": "^1.0.3",
+    "react-native-flash-message": "^0.4.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal-datetime-picker": "^14.0.1",
     "react-native-pager-view": "6.1.2",

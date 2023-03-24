@@ -1,7 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/MaterialIcons";
+
+// importing states and actions
+import {
+	selectCDKeyboardDisplayed,
+	selectCardFormActive,
+	setCardFormActive,
+	resetCardForm,
+} from "../slices/credit-card-slice";
 
 // importing components
 import CreditCards from "../components/credit-cards";
@@ -17,6 +27,12 @@ import {
 } from "../services/dimensions";
 
 const PaymentMethodScreen = () => {
+	const dispatch = useDispatch();
+	const navigator = useNavigation();
+
+	const cdKeyboadDisplayed = useSelector(selectCDKeyboardDisplayed);
+	const cardFormActive = useSelector(selectCardFormActive);
+
 	return (
 		<S.OuterContainer>
 			<HeaderContainer style={styles.boxShadow}>
@@ -29,13 +45,28 @@ const PaymentMethodScreen = () => {
 			</HeaderContainer>
 
 			<BodyContainer>
-				<CreditCards />
+				{!cdKeyboadDisplayed && <CreditCards />}
 
-				<AddNeCardButton>
-					<AddNeCardButtonText>+ Add New Card</AddNeCardButtonText>
-				</AddNeCardButton>
+				{!cardFormActive && (
+					<AddNeCardButton
+						onPress={() => dispatch(setCardFormActive(true))}>
+						<StyledButtonText style={{ color: "#72d0d4" }}>
+							+ Add New Card
+						</StyledButtonText>
+					</AddNeCardButton>
+				)}
 
-				<AddCardForm />
+				{cardFormActive && !cdKeyboadDisplayed && (
+					<HideFormButton
+						onPress={() => {
+							dispatch(setCardFormActive(false));
+							dispatch(resetCardForm(""));
+						}}>
+						<Icon name="cancel" size={25} color="#f55b6e" />
+					</HideFormButton>
+				)}
+
+				{cardFormActive && <AddCardForm />}
 			</BodyContainer>
 		</S.OuterContainer>
 	);
@@ -107,14 +138,25 @@ const AddNeCardButton = styled.TouchableOpacity`
 	margin-top: 20px;
 	background-color: #def8f9;
 	border-radius: 10%;
+	border: 2px dotted #72d0d4;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 2px dotted #72d0d4;
 `;
 
-const AddNeCardButtonText = styled.Text`
+const StyledButtonText = styled.Text`
 	font-size: 22px;
 	font-weight: 600;
-	color: #72d0d4; ;
+`;
+
+const HideFormButton = styled.TouchableOpacity`
+	width: 95%;
+	height: 40px;
+	margin-top: 20px;
+	/* background-color: #f55b6e; */
+	border-radius: 10%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
 `;

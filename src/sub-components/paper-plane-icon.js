@@ -1,10 +1,10 @@
 import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const CalendarIcon = ({ color, size, marginTop = 0, marginLeft = 0 }) => {
+const PaperPlaneIcon = ({ color, size, marginTop = 0, marginLeft = 0 }) => {
 	return (
 		<Icon
-			name="calendar"
+			name="paper-plane"
 			size={size}
 			color={color}
 			style={{ marginTop, marginLeft }}
@@ -12,4 +12,4 @@ const CalendarIcon = ({ color, size, marginTop = 0, marginLeft = 0 }) => {
 	);
 };
 
-export default CalendarIcon;
+export default PaperPlaneIcon;

@@ -24,6 +24,7 @@ import {
 	selectAddress,
 	selectUserInfoValid,
 	selectKeyboardDisplayed,
+	resetRegistrationForm,
 } from "../../slices/user-registration-slice";
 
 // importing styled components
@@ -84,10 +85,14 @@ const UserRegistrationForm = () => {
 				address,
 			})
 			.then((result) => {
+				console.log(result.data);
+				dispatch(resetRegistrationForm(""));
 				navigator.replace("HomeScreen");
 			})
 			.catch((error) => {
-				dispatch(setSignupErrorMessage(error.response.data.errors[0].msg));
+				dispatch(
+					setSignupErrorMessage(error.response.data.errors[0].message)
+				);
 				console.log({ signupErrorMessage });
 			});
 	};
