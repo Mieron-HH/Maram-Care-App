@@ -31,7 +31,7 @@ const TopDoctors = ({ marginTop = 0 }) => {
 
 	const getTopDoctors = async () => {
 		await axios
-			.get("http://192.168.100.167:3000/api/doctor/getTopDoctors")
+			.get("http://192.168.12.37:3000/api/doctor/getTopDoctors")
 			.then((result) => {
 				dispatch(setTopDoctors(result.data));
 			})
@@ -49,7 +49,8 @@ const TopDoctors = ({ marginTop = 0 }) => {
 			<DoctorsListContainer
 				horizontal
 				showsHorizontalScrollIndicator={false}
-				contentContainerStyle={{ padding: 5 }}>
+				contentContainerStyle={{ padding: 5 }}
+			>
 				{topDoctors.length !== 0 &&
 					topDoctors.map(
 						({ id, firstName, lastName, doctorImage, profession }) => {
@@ -61,7 +62,8 @@ const TopDoctors = ({ marginTop = 0 }) => {
 									onPress={() => {
 										dispatch(setSelectedDoctor(id));
 										navigator.navigate("BookAppointmentScreen");
-									}}>
+									}}
+								>
 									<DoctorImageContainer>
 										<DoctorImage
 											style={{ resizeMode: "cover" }}
@@ -74,9 +76,9 @@ const TopDoctors = ({ marginTop = 0 }) => {
 												fontSize: 17,
 												fontWeight: 600,
 												color: "#333",
-											}}>
-											Dr. {capitalizeWord(firstName)}{" "}
-											{capitalizeWord(lastName)}
+											}}
+										>
+											Dr. {capitalizeWord(firstName)} {capitalizeWord(lastName)}
 										</Text>
 										<Text style={{ fontWeight: 600, color: "#555" }}>
 											{profession}

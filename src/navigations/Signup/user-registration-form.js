@@ -74,7 +74,7 @@ const UserRegistrationForm = () => {
 		e.preventDefault();
 
 		await axios
-			.post("http://192.168.100.167:3000/api/user/signup", {
+			.post("http://192.168.12.37:3000/api/user/signup", {
 				phoneNumber,
 				DOB,
 				email,
@@ -90,9 +90,7 @@ const UserRegistrationForm = () => {
 				navigator.replace("HomeScreen");
 			})
 			.catch((error) => {
-				dispatch(
-					setSignupErrorMessage(error.response.data.errors[0].message)
-				);
+				dispatch(setSignupErrorMessage(error.response.data.errors[0].message));
 				console.log({ signupErrorMessage });
 			});
 	};
@@ -107,7 +105,8 @@ const UserRegistrationForm = () => {
 						{
 							marginTop: keyboardDisplayed ? 0 : 70,
 						},
-					]}>
+					]}
+				>
 					<AnimatedGreetingsMessageContainer style={{ height: formAnim }}>
 						<S.GreetingsTitleContainer style={{ marginBottom: 0 }}>
 							<S.GreetingsTitle>Welcome back to</S.GreetingsTitle>
@@ -134,7 +133,8 @@ const UserRegistrationForm = () => {
 				<S.ContinueButton
 					disabled={!userInfoValid}
 					style={{ marginTop: 0, opacity: userInfoValid ? 1 : 0.5 }}
-					onPress={handleOnSignupEvent}>
+					onPress={handleOnSignupEvent}
+				>
 					<S.ContinueButtonText>Sign Up</S.ContinueButtonText>
 				</S.ContinueButton>
 			</S.ContinueButtonContainer>

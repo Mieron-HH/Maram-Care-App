@@ -28,7 +28,7 @@ const Appointments = ({ marginTop = 0 }) => {
 
 	const getUserAppointments = () => {
 		axios
-			.get("http://192.168.100.167:3000/api/appointment/getUserAppointments")
+			.get("http://192.168.12.37:3000/api/appointment/getUserAppointments")
 			.then((result) => {
 				setNearestAppointment(result.data);
 			})
@@ -58,21 +58,18 @@ const Appointments = ({ marginTop = 0 }) => {
 										fontSize: 23,
 										fontWeight: 600,
 										color: "#333",
-									}}>
-									Dr.{" "}
-									{capitalizeWord(
-										nearestAppointment[0].doctor.firstName
-									)}{" "}
-									{capitalizeWord(
-										nearestAppointment[0].doctor.lastName
-									)}
+									}}
+								>
+									Dr. {capitalizeWord(nearestAppointment[0].doctor.firstName)}{" "}
+									{capitalizeWord(nearestAppointment[0].doctor.lastName)}
 								</Text>
 								<Text
 									style={{
 										fontSize: 16,
 										fontWeight: 600,
 										color: "#555",
-									}}>
+									}}
+								>
 									{nearestAppointment[0].doctor.profession}
 								</Text>
 							</DoctorDetailsContainer>
@@ -82,10 +79,9 @@ const Appointments = ({ marginTop = 0 }) => {
 										fontSize: 19,
 										fontWeight: 600,
 										color: "white",
-									}}>
-									{new window.Date(
-										nearestAppointment[0].date
-									).toDateString()}{" "}
+									}}
+								>
+									{new window.Date(nearestAppointment[0].date).toDateString()}{" "}
 									{nearestAppointment[0].time}
 								</Text>
 							</ScheduleDateContainer>
@@ -93,16 +89,15 @@ const Appointments = ({ marginTop = 0 }) => {
 					</Appointment>
 				) : (
 					<NoAppointmentContainer>
-						<NoAppointmentText>
-							No upcoming appointments
-						</NoAppointmentText>
+						<NoAppointmentText>No upcoming appointments</NoAppointmentText>
 					</NoAppointmentContainer>
 				)}
 				<AppointmentButton
 					onPress={() => {
 						dispatch(setScheduleNavbarActive(true));
 						navigator.replace("AppointmentScreen");
-					}}>
+					}}
+				>
 					<Icon name="chevron-right" size={35} color="#3b31a4" />
 				</AppointmentButton>
 			</AppointmentContainer>

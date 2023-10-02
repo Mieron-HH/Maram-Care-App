@@ -36,7 +36,7 @@ const LoginScreen = () => {
 		e.preventDefault();
 
 		await axios
-			.post("http://192.168.100.167:3000/api/user/signin", {
+			.post("http://192.168.12.37:3000/api/user/signin", {
 				email: userEmail.toLowerCase().trim(),
 				password: userPassword,
 			})
@@ -94,15 +94,14 @@ const LoginScreen = () => {
 					</TextInputContainer>
 
 					<ForgotPasswordContainer>
-						<ForgotPassswordText>
-							Forgot the password?
-						</ForgotPassswordText>
+						<ForgotPassswordText>Forgot the password?</ForgotPassswordText>
 					</ForgotPasswordContainer>
 
 					<ButtonsContainer>
 						<StyledButton
 							style={{ backgroundColor: "#2dcad0" }}
-							onPress={handleOnLogin}>
+							onPress={handleOnLogin}
+						>
 							<StyledButtonText style={{ color: "white" }}>
 								Login
 							</StyledButtonText>
@@ -110,7 +109,8 @@ const LoginScreen = () => {
 
 						<StyledButton
 							style={{ borderColor: "#af93fc", borderWidth: 2 }}
-							onPress={() => navigator.navigate("SignupScreen")}>
+							onPress={() => navigator.navigate("SignupScreen")}
+						>
 							<StyledButtonText style={{ color: "#af93fc" }}>
 								Sign Up
 							</StyledButtonText>

@@ -38,10 +38,9 @@ const HomeScreen = () => {
 
 	const authUser = async () => {
 		await axios
-			.get("http://192.168.100.167:3000/api/user/currentUser")
+			.get("http://192.168.12.37:3000/api/user/currentUser")
 			.then((result) => {
-				if (result.data.currentUser === null)
-					navigator.replace("LoginScreen");
+				if (result.data.currentUser === null) navigator.replace("LoginScreen");
 				else getUserInfo();
 			})
 			.catch((error) => {
@@ -52,7 +51,7 @@ const HomeScreen = () => {
 
 	const getUserInfo = async () => {
 		await axios
-			.get("http://192.168.100.167:3000/api/user/getInfo")
+			.get("http://192.168.12.37:3000/api/user/getInfo")
 			.then((result) => {
 				dispatch(setCurrentUser(result.data));
 				dispatch(setUserDataFetched(true));
@@ -76,7 +75,8 @@ const HomeScreen = () => {
 					alignItems: "center",
 					paddingBottom: "5%",
 				}}
-				showsVerticalScrollIndicator={false}>
+				showsVerticalScrollIndicator={false}
+			>
 				<DeviceStatus
 					name="Tyto Care"
 					batteryPercent={100}

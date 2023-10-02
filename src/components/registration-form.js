@@ -50,8 +50,7 @@ import * as S from "../components/styled-components";
 
 const RegistrationForm = ({ formActive, formInactive }) => {
 	const dispatch = useDispatch();
-	const validatation_url =
-		"http://192.168.100.167:3000/api/user/validateInput";
+	const validatation_url = "http://192.168.12.37:3000/api/user/validateInput";
 
 	const fullName = useSelector(selectFullName);
 	const DOB = useSelector(selectDOB);
@@ -177,20 +176,23 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 					textAlign: "left",
 					fontSize: 18,
 					fontWeight: 700,
-				}}>
+				}}
+			>
 				Personal Information
 			</Text>
 			<S.TextInputContainer
 				style={[
 					styles.textInputContainer,
 					{ borderColor: fullNameErrorMessage === "" ? "#dfd2ff" : "red" },
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
 						fullNameErrorMessage === ""
 							? styles.hiddenInput
 							: styles.visibleInput
-					}>
+					}
+				>
 					{fullNameErrorMessage}
 				</InputErrorMessage>
 				<S.StyledTextInput
@@ -214,13 +216,13 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 				style={[
 					styles.textInputContainer,
 					{ borderColor: DOBErrorMessage === "" ? "#dfd2ff" : "red" },
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
-						DOBErrorMessage === ""
-							? styles.hiddenInput
-							: styles.visibleInput
-					}>
+						DOBErrorMessage === "" ? styles.hiddenInput : styles.visibleInput
+					}
+				>
 					{DOBErrorMessage}
 				</InputErrorMessage>
 				<S.StyledTextInput
@@ -238,9 +240,9 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 					onConfirm={(date) => {
 						dispatch(
 							setDOB(
-								`${date.getFullYear()}-${pad(
-									date.getMonth() + 1
-								)}-${pad(date.getDate())}`
+								`${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+									date.getDate()
+								)}`
 							)
 						);
 						validateInput("DOB", DOB);
@@ -259,16 +261,17 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 				style={[
 					styles.textInputContainer,
 					{
-						borderColor:
-							phoneNumberErrorMessage === "" ? "#dfd2ff" : "red",
+						borderColor: phoneNumberErrorMessage === "" ? "#dfd2ff" : "red",
 					},
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
 						phoneNumberErrorMessage === ""
 							? styles.hiddenInput
 							: styles.visibleInput
-					}>
+					}
+				>
 					{phoneNumberErrorMessage}
 				</InputErrorMessage>
 				<S.StyledTextInput
@@ -288,13 +291,13 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 				style={[
 					styles.textInputContainer,
 					{ borderColor: emailErrorMessage === "" ? "#dfd2ff" : "red" },
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
-						emailErrorMessage === ""
-							? styles.hiddenInput
-							: styles.visibleInput
-					}>
+						emailErrorMessage === "" ? styles.hiddenInput : styles.visibleInput
+					}
+				>
 					{emailErrorMessage}
 				</InputErrorMessage>
 				<S.StyledTextInput
@@ -318,13 +321,15 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 				style={[
 					styles.textInputContainer,
 					{ borderColor: passwordErrorMessage === "" ? "#dfd2ff" : "red" },
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
 						passwordErrorMessage === ""
 							? styles.hiddenInput
 							: styles.visibleInput
-					}>
+					}
+				>
 					{passwordErrorMessage}
 				</InputErrorMessage>
 				<S.StyledTextInput
@@ -349,13 +354,13 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 				style={[
 					styles.textInputContainer,
 					{ borderColor: genderErrorMessage === "" ? "#dfd2ff" : "red" },
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
-						genderErrorMessage === ""
-							? styles.hiddenInput
-							: styles.visibleInput
-					}>
+						genderErrorMessage === "" ? styles.hiddenInput : styles.visibleInput
+					}
+				>
 					{genderErrorMessage}
 				</InputErrorMessage>
 				<RNPickerSelect
@@ -378,13 +383,13 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 				style={[
 					styles.textInputContainer,
 					{ borderColor: cityErrorMessage === "" ? "#dfd2ff" : "red" },
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
-						cityErrorMessage === ""
-							? styles.hiddenInput
-							: styles.visibleInput
-					}>
+						cityErrorMessage === "" ? styles.hiddenInput : styles.visibleInput
+					}
+				>
 					{cityErrorMessage}
 				</InputErrorMessage>
 				<RNPickerSelect
@@ -411,13 +416,15 @@ const RegistrationForm = ({ formActive, formInactive }) => {
 				style={[
 					styles.textInputContainer,
 					{ borderColor: addressErrorMessage === "" ? "#dfd2ff" : "red" },
-				]}>
+				]}
+			>
 				<InputErrorMessage
 					style={
 						addressErrorMessage === ""
 							? styles.hiddenInput
 							: styles.visibleInput
-					}>
+					}
+				>
 					{addressErrorMessage}
 				</InputErrorMessage>
 				<S.StyledTextInput

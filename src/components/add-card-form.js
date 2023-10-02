@@ -38,7 +38,7 @@ import { showMessage } from "react-native-flash-message";
 const AddCardForm = () => {
 	const dispatch = useDispatch();
 
-	const validatation_url = "http://192.168.100.167:3000/api/card";
+	const validatation_url = "http://192.168.12.37:3000/api/card";
 	const cardHolderName = useSelector(selectCardHolderName);
 	const cardNumber = useSelector(selectCardNumber);
 	const expiryDate = useSelector(selectExpiryDate);
@@ -146,7 +146,8 @@ const AddCardForm = () => {
 	return (
 		<AddCardFormContainer style={styles.boxShadow}>
 			<SingleInputGroup
-				style={{ width: "90%", height: "20%", marginBottom: 20 }}>
+				style={{ width: "90%", height: "20%", marginBottom: 20 }}
+			>
 				<InputLabel>Card Number</InputLabel>
 				<StyledTextInput
 					value={cardNumber}
@@ -168,7 +169,8 @@ const AddCardForm = () => {
 						cardNumberErrorMessage === ""
 							? styles.hiddenInput
 							: styles.visibleInput
-					}>
+					}
+				>
 					{cardNumberErrorMessage}
 				</InputErrorMessage>
 
@@ -180,7 +182,8 @@ const AddCardForm = () => {
 			</SingleInputGroup>
 
 			<SingleInputGroup
-				style={{ width: "90%", height: "20%", marginBottom: 20 }}>
+				style={{ width: "90%", height: "20%", marginBottom: 20 }}
+			>
 				<InputLabel>Cardholder Name</InputLabel>
 				<StyledTextInput
 					value={cardHolderName}
@@ -199,7 +202,8 @@ const AddCardForm = () => {
 						cardHolderNameErrorMessage === ""
 							? styles.hiddenInput
 							: styles.visibleInput
-					}>
+					}
+				>
 					{cardHolderNameErrorMessage}
 				</InputErrorMessage>
 
@@ -231,7 +235,8 @@ const AddCardForm = () => {
 							expiryDateErrorMessage === ""
 								? styles.hiddenInput
 								: styles.visibleInput
-						}>
+						}
+					>
 						{expiryDateErrorMessage}
 					</InputErrorMessage>
 
@@ -261,10 +266,9 @@ const AddCardForm = () => {
 
 					<InputErrorMessage
 						style={
-							CVCErrorMessage === ""
-								? styles.hiddenInput
-								: styles.visibleInput
-						}>
+							CVCErrorMessage === "" ? styles.hiddenInput : styles.visibleInput
+						}
+					>
 						{CVCErrorMessage}
 					</InputErrorMessage>
 
@@ -279,7 +283,8 @@ const AddCardForm = () => {
 			<ContinueButton
 				disabled={!creditCardValid}
 				style={[styles.saveButton, { opacity: creditCardValid ? 1 : 0.5 }]}
-				onPress={saveCard}>
+				onPress={saveCard}
+			>
 				<ContinueButtonText>Save</ContinueButtonText>
 			</ContinueButton>
 		</AddCardFormContainer>

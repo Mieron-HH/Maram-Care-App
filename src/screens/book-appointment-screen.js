@@ -69,15 +69,12 @@ const BookAppointmentScreen = () => {
 		if (!currentUser.paymentPlan) navigator.navigate("PaymentPlanScreen");
 
 		axios
-			.post(
-				"http://192.168.100.167:3000/api/appointment/createAppointment",
-				{
-					user: currentUser.id,
-					doctor: selectedDoctor,
-					date: apptDate,
-					time: apptTime,
-				}
-			)
+			.post("http://192.168.12.37:3000/api/appointment/createAppointment", {
+				user: currentUser.id,
+				doctor: selectedDoctor,
+				date: apptDate,
+				time: apptTime,
+			})
 			.then((result) => {
 				console.log(result.data);
 				dispatch(resetAppointment(""));
@@ -140,14 +137,14 @@ const BookAppointmentScreen = () => {
 										fontSize: 18,
 										fontWeight: 600,
 										color: "#333",
-									}}>
+									}}
+								>
 									About Doctor
 								</Text>
 								<AboutDoctorText>
-									Hello. My name is {doctorInfo.firstName}{" "}
-									{doctorInfo.lastName}, and I am a general dentist at
-									LLH international hospital. If you have any health
-									problem, then please contact me.
+									Hello. My name is {doctorInfo.firstName} {doctorInfo.lastName}
+									, and I am a general dentist at LLH international hospital. If
+									you have any health problem, then please contact me.
 								</AboutDoctorText>
 							</AboutDoctorContainer>
 
@@ -159,10 +156,9 @@ const BookAppointmentScreen = () => {
 							<S.ContinueButton
 								disabled={!canBook}
 								style={{ opacity: canBook ? 1 : 0.5 }}
-								onPress={handleOnBookEvent}>
-								<S.ContinueButtonText>
-									Book Appointment
-								</S.ContinueButtonText>
+								onPress={handleOnBookEvent}
+							>
+								<S.ContinueButtonText>Book Appointment</S.ContinueButtonText>
 							</S.ContinueButton>
 						</ScheduleContainer>
 					</BodyContainer>

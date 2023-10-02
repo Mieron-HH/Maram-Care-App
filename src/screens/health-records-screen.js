@@ -29,7 +29,7 @@ const HealthRecordsScreen = () => {
 
 	const getUserHealthRecords = () => {
 		axios
-			.get("http://192.168.100.167:3000/api/health/getUserHealthProfiles")
+			.get("http://192.168.12.37:3000/api/health/getUserHealthProfiles")
 			.then((result) => {
 				setHealthRecords(result.data);
 			})
@@ -51,7 +51,8 @@ const HealthRecordsScreen = () => {
 			<HeaderTitleContainer>
 				<ReturnButtonContainer
 					style={styles.boxShadow}
-					onPress={() => navigator.goBack()}>
+					onPress={() => navigator.goBack()}
+				>
 					<Icon name="chevron-left" size={35} color="#333" />
 				</ReturnButtonContainer>
 				<HeaderTitle>Health Records</HeaderTitle>
@@ -74,7 +75,8 @@ const HealthRecordsScreen = () => {
 										fontSize: 21,
 										fontWeight: 600,
 										color: "#333",
-									}}>
+									}}
+								>
 									{capitalizeWord(currentUser.fullName.split(" ")[0])}{" "}
 									{capitalizeWord(currentUser.fullName.split(" ")[1])}
 								</Text>
@@ -83,7 +85,8 @@ const HealthRecordsScreen = () => {
 										fontSize: 18,
 										fontWeight: 500,
 										color: "#888",
-									}}>
+									}}
+								>
 									{currentUser.phoneNumber}
 								</Text>
 							</>
@@ -99,30 +102,20 @@ const HealthRecordsScreen = () => {
 					<HealthRecordsListContainer showsVerticalScrollIndicator={false}>
 						{healthRecords.map((record) => {
 							return (
-								<HealthRecordContainer
-									key={record.id}
-									style={styles.boxShadow}>
-									<RelativeText>
-										{capitalizeWord(record.relative)}
-									</RelativeText>
+								<HealthRecordContainer key={record.id} style={styles.boxShadow}>
+									<RelativeText>{capitalizeWord(record.relative)}</RelativeText>
 
 									<RecordDetailsContainer>
 										<RecordDetail>
 											<RecordDetailTitle>Weight</RecordDetailTitle>
-											<RecordDetailValue>
-												{record.weight}kg
-											</RecordDetailValue>
+											<RecordDetailValue>{record.weight}kg</RecordDetailValue>
 										</RecordDetail>
 										<RecordDetail>
 											<RecordDetailTitle>Height</RecordDetailTitle>
-											<RecordDetailValue>
-												{record.height}cm
-											</RecordDetailValue>
+											<RecordDetailValue>{record.height}cm</RecordDetailValue>
 										</RecordDetail>
 										<RecordDetail>
-											<RecordDetailTitle>
-												Blood Group
-											</RecordDetailTitle>
+											<RecordDetailTitle>Blood Group</RecordDetailTitle>
 											<RecordDetailValue>
 												{record.bloodGroup.toUpperCase()}
 											</RecordDetailValue>
@@ -135,14 +128,12 @@ const HealthRecordsScreen = () => {
 				)}
 
 				<AddNewProfileButtonContainer
-					style={{ bottom: healthRecords.length === 0 ? 550 : 30 }}>
+					style={{ bottom: healthRecords.length === 0 ? 550 : 30 }}
+				>
 					<AddNewProfileButton
-						onPress={() =>
-							navigator.navigate("CreateHealthProfileScreen")
-						}>
-						<AddNewProfileButtonText>
-							New Profile +
-						</AddNewProfileButtonText>
+						onPress={() => navigator.navigate("CreateHealthProfileScreen")}
+					>
+						<AddNewProfileButtonText>New Profile +</AddNewProfileButtonText>
 					</AddNewProfileButton>
 				</AddNewProfileButtonContainer>
 			</S.Container>

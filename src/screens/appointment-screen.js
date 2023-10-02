@@ -23,7 +23,7 @@ const AppointmentScreen = () => {
 
 	const getUserAppointments = async () => {
 		await axios
-			.get("http://192.168.100.167:3000/api/appointment/getUserAppointments")
+			.get("http://192.168.12.37:3000/api/appointment/getUserAppointments")
 			.then((result) => {
 				setUserAppointments(result.data);
 			})
@@ -55,8 +55,7 @@ const AppointmentScreen = () => {
 					<NoAppointmentContainer>
 						<CategoriesContainer style={styles.boxShadow}>
 							<Category>
-								<CategoryIconContainer
-									style={{ backgroundColor: "#e3dcff" }}>
+								<CategoryIconContainer style={{ backgroundColor: "#e3dcff" }}>
 									<Icon name="schedule" size={30} color="#8068e9" />
 								</CategoryIconContainer>
 								<CategoryText style={{ color: "#8068e9" }}>
@@ -65,22 +64,16 @@ const AppointmentScreen = () => {
 								<Icon name="circle" size={6} color="#8068e9" />
 							</Category>
 							<Category>
-								<CategoryIconContainer
-									style={{ backgroundColor: "#e3dcff" }}>
+								<CategoryIconContainer style={{ backgroundColor: "#e3dcff" }}>
 									<Icon name="check-box" size={30} color="blue" />
 								</CategoryIconContainer>
-								<CategoryText style={{ color: "#888" }}>
-									Skin
-								</CategoryText>
+								<CategoryText style={{ color: "#888" }}>Skin</CategoryText>
 							</Category>
 							<Category>
-								<CategoryIconContainer
-									style={{ backgroundColor: "#c9f8ff" }}>
+								<CategoryIconContainer style={{ backgroundColor: "#c9f8ff" }}>
 									<Icon name="check-box" size={30} color="#33d4e6" />
 								</CategoryIconContainer>
-								<CategoryText style={{ color: "#888" }}>
-									Dentist
-								</CategoryText>
+								<CategoryText style={{ color: "#888" }}>Dentist</CategoryText>
 							</Category>
 						</CategoriesContainer>
 
@@ -92,7 +85,8 @@ const AppointmentScreen = () => {
 									color: "#555",
 									width: "40%",
 									textAlign: "center",
-								}}>
+								}}
+							>
 								You do not have an appointment!
 							</Text>
 
@@ -103,16 +97,14 @@ const AppointmentScreen = () => {
 									color: "#999",
 									width: "70%",
 									textAlign: "center",
-								}}>
-								Book a health care service right away for you and your
-								family!
+								}}
+							>
+								Book a health care service right away for you and your family!
 							</Text>
 						</NoAppointmentTextContainer>
 
 						<S.ContinueButton>
-							<S.ContinueButtonText>
-								Make an appointment
-							</S.ContinueButtonText>
+							<S.ContinueButtonText>Make an appointment</S.ContinueButtonText>
 						</S.ContinueButton>
 					</NoAppointmentContainer>
 				)}

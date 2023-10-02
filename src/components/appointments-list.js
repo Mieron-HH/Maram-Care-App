@@ -12,10 +12,9 @@ import { capitalizeWord } from "../services/common";
 const AppointmentsList = ({ appointment, getUserAppointments }) => {
 	const cancelAppointment = async (appointmentID) => {
 		await axios
-			.post(
-				"http://192.168.100.167:3000/api/appointment/cancelAppointment",
-				{ appointmentID }
-			)
+			.post("http://192.168.12.37:3000/api/appointment/cancelAppointment", {
+				appointmentID,
+			})
 			.then((result) => {
 				getUserAppointments();
 				showMessage({
@@ -52,7 +51,8 @@ const AppointmentsList = ({ appointment, getUserAppointments }) => {
 							fontSize: 18,
 							fontWeight: 500,
 							color: "#333",
-						}}>
+						}}
+					>
 						Dr. {capitalizeWord(appointment.doctor.firstName)}{" "}
 						{capitalizeWord(appointment.doctor.lastName)}
 					</Text>
@@ -61,7 +61,8 @@ const AppointmentsList = ({ appointment, getUserAppointments }) => {
 							fontSize: 15,
 							fontWeight: 500,
 							color: "#777",
-						}}>
+						}}
+					>
 						{appointment.doctor.profession}
 					</Text>
 				</DoctorDetailsContainer>
@@ -74,8 +75,7 @@ const AppointmentsList = ({ appointment, getUserAppointments }) => {
 				</AppointmentDateContainer>
 			</AppointmentDetailsContain>
 
-			<CancelButtonContainer
-				onPress={() => cancelAppointment(appointment.id)}>
+			<CancelButtonContainer onPress={() => cancelAppointment(appointment.id)}>
 				<Icon name="cancel" size={20} color="red" />
 			</CancelButtonContainer>
 		</AppointmentContainer>

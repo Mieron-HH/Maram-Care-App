@@ -34,7 +34,7 @@ const UserProfileScreen = () => {
 		e.preventDefault();
 
 		await axios
-			.get("http://192.168.100.167:3000/api/user/signout")
+			.get("http://192.168.12.37:3000/api/user/signout")
 			.then(() => {
 				dispatch(setUserDataFetched(false));
 				dispatch(resetUserInfo(""));
@@ -74,7 +74,8 @@ const UserProfileScreen = () => {
 										fontSize: 21,
 										fontWeight: 600,
 										color: "#333",
-									}}>
+									}}
+								>
 									{capitalizeWord(currentUser.fullName.split(" ")[0])}{" "}
 									{capitalizeWord(currentUser.fullName.split(" ")[1])}
 								</Text>
@@ -83,7 +84,8 @@ const UserProfileScreen = () => {
 										fontSize: 18,
 										fontWeight: 500,
 										color: "#888",
-									}}>
+									}}
+								>
 									{currentUser.phoneNumber}
 								</Text>
 							</>
@@ -97,12 +99,14 @@ const UserProfileScreen = () => {
 
 				<ProfileButtonsListContainer style={styles.boxShadow}>
 					<ProfileButtonContainer
-						onPress={() => navigator.navigate("ProfileScreen")}>
+						onPress={() => navigator.navigate("ProfileScreen")}
+					>
 						<Icon name="person" size={28} color="#5e42e3" />
 						<ProfileButtonText>Profile</ProfileButtonText>
 					</ProfileButtonContainer>
 					<ProfileButtonContainer
-						onPress={() => navigator.navigate("QAScreen")}>
+						onPress={() => navigator.navigate("QAScreen")}
+					>
 						<Icon name="history" size={28} color="#5e42e3" />
 						<ProfileButtonText>Q & A History</ProfileButtonText>
 					</ProfileButtonContainer>
@@ -111,7 +115,8 @@ const UserProfileScreen = () => {
 						<ProfileButtonText>Address</ProfileButtonText>
 					</ProfileButtonContainer>
 					<ProfileButtonContainer
-						onPress={() => navigator.navigate("PaymentMethodScreen")}>
+						onPress={() => navigator.navigate("PaymentMethodScreen")}
+					>
 						<Icon name="credit-card" size={28} color="#5e42e3" />
 						<ProfileButtonText>Payment Method</ProfileButtonText>
 					</ProfileButtonContainer>

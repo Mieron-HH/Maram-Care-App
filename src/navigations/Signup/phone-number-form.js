@@ -35,7 +35,7 @@ const PhoneNumberForm = () => {
 
 		// Validate input here
 		await axios
-			.post("http://192.168.100.167:3000/api/user/validateInput", {
+			.post("http://192.168.12.37:3000/api/user/validateInput", {
 				phoneNumber,
 			})
 			.then((result) => {
@@ -61,8 +61,7 @@ const PhoneNumberForm = () => {
 
 	return (
 		<S.Container>
-			<S.ReturnButtonContainer
-				onPress={() => navigator.replace("LoginScreen")}>
+			<S.ReturnButtonContainer onPress={() => navigator.replace("LoginScreen")}>
 				<Icon name="chevron-left" size={35} color="white" />
 			</S.ReturnButtonContainer>
 
@@ -75,9 +74,7 @@ const PhoneNumberForm = () => {
 						{" "}
 						Maram{" "}
 					</S.GreetingsTitle>
-					<S.GreetingsTitle style={{ color: "#321996" }}>
-						Care
-					</S.GreetingsTitle>
+					<S.GreetingsTitle style={{ color: "#321996" }}>Care</S.GreetingsTitle>
 				</S.GreetingsTitleContainer>
 				<S.GreetingsSubtitle>
 					Providing remote medical care from the comfort of your home
@@ -87,11 +84,11 @@ const PhoneNumberForm = () => {
 					style={[
 						styles.textInputContainer,
 						{
-							borderColor:
-								phoneNumberErrorMessage === "" ? "#f7f7f7" : "red",
+							borderColor: phoneNumberErrorMessage === "" ? "#f7f7f7" : "red",
 							borderWidth: phoneNumberErrorMessage === "" ? 0 : 1,
 						},
-					]}>
+					]}
+				>
 					<S.StyledTextInput
 						value={phoneNumber}
 						onChangeText={(number) => dispatch(setPhoneNumber(number))}
@@ -122,7 +119,8 @@ const PhoneNumberForm = () => {
 					{
 						opacity: phoneNumberValid ? 1 : 0.5,
 					},
-				]}>
+				]}
+			>
 				<S.ContinueButtonText>Continue</S.ContinueButtonText>
 			</S.ContinueButton>
 		</S.Container>

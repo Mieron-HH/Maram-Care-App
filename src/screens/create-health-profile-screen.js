@@ -59,7 +59,7 @@ const CreateHealthProfileScreen = () => {
 	const dispatch = useDispatch();
 	const navigator = useNavigation();
 	const validatation_url =
-		"http://192.168.100.167:3000/api/health/validateHealthProfileInput";
+		"http://192.168.12.37:3000/api/health/validateHealthProfileInput";
 
 	const hpFullName = useSelector(selectHPFullName);
 	const hpRelative = useSelector(selectHPRelative);
@@ -165,7 +165,7 @@ const CreateHealthProfileScreen = () => {
 		e.preventDefault();
 
 		axios
-			.post("http://192.168.100.167:3000/api/health/createHealthProfile", {
+			.post("http://192.168.12.37:3000/api/health/createHealthProfile", {
 				fullName: hpFullName,
 				relative: hpRelative,
 				gender: hpGender,
@@ -205,7 +205,8 @@ const CreateHealthProfileScreen = () => {
 				<HeaderTitleContainer>
 					<ReturnButtonContainer
 						style={styles.boxShadow}
-						onPress={() => navigator.goBack()}>
+						onPress={() => navigator.goBack()}
+					>
 						<Icon name="chevron-left" size={35} color="#333" />
 					</ReturnButtonContainer>
 					<HeaderTitle>Profile</HeaderTitle>
@@ -219,7 +220,8 @@ const CreateHealthProfileScreen = () => {
 						{
 							marginTop: hpKeyboardDisplayed ? 60 : 180,
 						},
-					]}>
+					]}
+				>
 					<UserImageContainer>
 						<UserImage
 							style={{ resizeMode: "cover", borderRadius: 100 }}
@@ -232,7 +234,8 @@ const CreateHealthProfileScreen = () => {
 
 					<FormContainer>
 						<SingleInputGroup
-							style={{ width: "100%", height: "14%", marginBottom: 20 }}>
+							style={{ width: "100%", height: "14%", marginBottom: 20 }}
+						>
 							<InputLabel>First Name & Last Name</InputLabel>
 							<StyledTextInput
 								value={hpFullName}
@@ -251,7 +254,8 @@ const CreateHealthProfileScreen = () => {
 									hpFullNameErrorMessage === ""
 										? styles.hiddenInput
 										: styles.visibleInput
-								}>
+								}
+							>
 								{hpFullNameErrorMessage}
 							</InputErrorMessage>
 							{hpFullName !== "" && hpFullNameErrorMessage === "" && (
@@ -266,17 +270,14 @@ const CreateHealthProfileScreen = () => {
 								style={{
 									width: "45%",
 									height: "100%",
-								}}>
+								}}
+							>
 								<InputLabel>Relative</InputLabel>
 								<DropdownSelectorContainer>
 									<RNPickerSelect
 										style={styles.styledPicker}
-										onValueChange={(value) =>
-											dispatch(setHPRelative(value))
-										}
-										onDonePress={() =>
-											validateInput("relative", hpRelative)
-										}
+										onValueChange={(value) => dispatch(setHPRelative(value))}
+										onDonePress={() => validateInput("relative", hpRelative)}
 										items={[
 											{ label: "Me", value: "me" },
 											{ label: "Mother", value: "mother" },
@@ -302,7 +303,8 @@ const CreateHealthProfileScreen = () => {
 										hpRelativeErrorMessage === ""
 											? styles.hiddenInput
 											: styles.visibleInput
-									}>
+									}
+								>
 									{hpRelativeErrorMessage}
 								</InputErrorMessage>
 							</SingleInputGroup>
@@ -311,17 +313,14 @@ const CreateHealthProfileScreen = () => {
 								style={{
 									width: "45%",
 									height: "100%",
-								}}>
+								}}
+							>
 								<InputLabel>Gender</InputLabel>
 								<DropdownSelectorContainer>
 									<RNPickerSelect
 										style={styles.styledPicker}
-										onValueChange={(value) =>
-											dispatch(setHPGender(value))
-										}
-										onDonePress={() =>
-											validateInput("gender", hpGender)
-										}
+										onValueChange={(value) => dispatch(setHPGender(value))}
+										onDonePress={() => validateInput("gender", hpGender)}
 										items={[
 											{ label: "Male", value: "male" },
 											{ label: "Female", value: "female" },
@@ -339,7 +338,8 @@ const CreateHealthProfileScreen = () => {
 										hpGenderErrorMessage === ""
 											? styles.hiddenInput
 											: styles.visibleInput
-									}>
+									}
+								>
 									{hpGenderErrorMessage}
 								</InputErrorMessage>
 							</SingleInputGroup>
@@ -350,7 +350,8 @@ const CreateHealthProfileScreen = () => {
 								width: "100%",
 								height: "14%",
 								marginBottom: 20,
-							}}>
+							}}
+						>
 							<InputLabel>Date of Birth</InputLabel>
 							<StyledTextInput
 								value={hpDOB}
@@ -361,18 +362,14 @@ const CreateHealthProfileScreen = () => {
 								isVisible={isDatePickerVisible}
 								mode="date"
 								isDarkModeEnabled={false}
-								date={
-									hpDOB === ""
-										? new Date("1998-06-01")
-										: new Date(hpDOB)
-								}
+								date={hpDOB === "" ? new Date("1998-06-01") : new Date(hpDOB)}
 								onHide={() => validateInput("DOB", hpDOB)}
 								onConfirm={(date) => {
 									dispatch(
 										setHPDOB(
-											`${date.getFullYear()}-${pad(
-												date.getMonth() + 1
-											)}-${pad(date.getDate())}`
+											`${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+												date.getDate()
+											)}`
 										)
 									);
 									validateInput("DOB", hpDOB);
@@ -385,12 +382,11 @@ const CreateHealthProfileScreen = () => {
 									hpDOBErrorMessage === ""
 										? styles.hiddenInput
 										: styles.visibleInput
-								}>
+								}
+							>
 								{hpDOBErrorMessage}
 							</InputErrorMessage>
-							<DatePickerInput
-								onPress={() => setDatePickerVisibility(true)}
-							/>
+							<DatePickerInput onPress={() => setDatePickerVisibility(true)} />
 							<RightIcon>
 								<CalendarIcon color="lightgray" size={23} />
 							</RightIcon>
@@ -401,13 +397,12 @@ const CreateHealthProfileScreen = () => {
 								style={{
 									width: "45%",
 									height: "100%",
-								}}>
+								}}
+							>
 								<InputLabel>Height (cm)</InputLabel>
 								<StyledTextInput
 									value={hpHeight}
-									onChangeText={(input) =>
-										dispatch(setHPHeight(input))
-									}
+									onChangeText={(input) => dispatch(setHPHeight(input))}
 									onBlur={() => {
 										validateInput("height", hpHeight);
 										dispatch(setHPKeyboardDisplayed(false));
@@ -424,7 +419,8 @@ const CreateHealthProfileScreen = () => {
 										hpHeightErrorMessage === ""
 											? styles.hiddenInput
 											: styles.visibleInput
-									}>
+									}
+								>
 									{hpHeightErrorMessage}
 								</InputErrorMessage>
 								{hpHeight !== "" && hpHeightErrorMessage === "" && (
@@ -438,13 +434,12 @@ const CreateHealthProfileScreen = () => {
 								style={{
 									width: "45%",
 									height: "100%",
-								}}>
+								}}
+							>
 								<InputLabel>Weight (kg)</InputLabel>
 								<StyledTextInput
 									value={hpWeight}
-									onChangeText={(input) =>
-										dispatch(setHPWeight(input))
-									}
+									onChangeText={(input) => dispatch(setHPWeight(input))}
 									onBlur={() => {
 										validateInput("weight", hpWeight);
 										dispatch(setHPKeyboardDisplayed(false));
@@ -461,7 +456,8 @@ const CreateHealthProfileScreen = () => {
 										hpWeightErrorMessage === ""
 											? styles.hiddenInput
 											: styles.visibleInput
-									}>
+									}
+								>
 									{hpWeightErrorMessage}
 								</InputErrorMessage>
 								{hpWeight !== "" && hpWeightErrorMessage === "" && (
@@ -477,17 +473,14 @@ const CreateHealthProfileScreen = () => {
 								width: "100%",
 								height: "14%",
 								marginBottom: 20,
-							}}>
+							}}
+						>
 							<InputLabel>Blood Group</InputLabel>
 							<DropdownSelectorContainer>
 								<RNPickerSelect
 									style={styles.styledPicker}
-									onValueChange={(value) =>
-										dispatch(setHPBloodGroup(value))
-									}
-									onDonePress={() =>
-										validateInput("bloodGroup", hpBloodGroup)
-									}
+									onValueChange={(value) => dispatch(setHPBloodGroup(value))}
+									onDonePress={() => validateInput("bloodGroup", hpBloodGroup)}
 									items={[
 										{ label: "A", value: "A" },
 										{ label: "B", value: "B" },
@@ -507,7 +500,8 @@ const CreateHealthProfileScreen = () => {
 									hpBloodGroupErrorMessage === ""
 										? styles.hiddenInput
 										: styles.visibleInput
-								}>
+								}
+							>
 								{hpBloodGroupErrorMessage}
 							</InputErrorMessage>
 						</SingleInputGroup>
@@ -519,7 +513,8 @@ const CreateHealthProfileScreen = () => {
 							styles.createButton,
 							{ opacity: healthProfileValid ? 1 : 0.5 },
 						]}
-						onPress={createHealthProfile}>
+						onPress={createHealthProfile}
+					>
 						<S.ContinueButtonText>Create Profile</S.ContinueButtonText>
 					</S.ContinueButton>
 				</HealthFormContainer>

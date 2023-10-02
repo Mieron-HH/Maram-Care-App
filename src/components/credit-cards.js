@@ -16,7 +16,7 @@ const CreditCards = () => {
 
 	const getUserCards = () => {
 		axios
-			.get("http://192.168.100.167:3000/api/card/getUserCards")
+			.get("http://192.168.12.37:3000/api/card/getUserCards")
 			.then((result) => {
 				setUserCards(result.data);
 			})
@@ -28,9 +28,7 @@ const CreditCards = () => {
 	return (
 		<CreditCardsContainer>
 			<TitleContainer>
-				<Text style={{ fontSize: 22, fontWeight: 500 }}>
-					Payment Option
-				</Text>
+				<Text style={{ fontSize: 22, fontWeight: 500 }}>Payment Option</Text>
 			</TitleContainer>
 			{userCards.length !== 0 ? (
 				<CreditCardsListContainer
@@ -39,7 +37,8 @@ const CreditCards = () => {
 					contentContainerStyle={{
 						justifyContent: "center",
 						alignItems: "center",
-					}}>
+					}}
+				>
 					{userCards.map((card) => {
 						return (
 							<CreditCard key={card.id} style={styles.boxShadow}>
@@ -67,12 +66,8 @@ const CreditCards = () => {
 								</CardIdentifierImageContainer>
 								<CardInfoContainer>
 									<CardInfoText>
-										{capitalizeWord(
-											card.cardHolderName.split(" ")[0]
-										)}{" "}
-										{capitalizeWord(
-											card.cardHolderName.split(" ")[1]
-										)}
+										{capitalizeWord(card.cardHolderName.split(" ")[0])}{" "}
+										{capitalizeWord(card.cardHolderName.split(" ")[1])}
 									</CardInfoText>
 									<CardInfoText>{card.expiryDate}</CardInfoText>
 								</CardInfoContainer>
@@ -82,10 +77,7 @@ const CreditCards = () => {
 									</CardNumberText>
 									<CardNumberText>* * * * * * * * *</CardNumberText>
 									<CardNumberText>
-										{card.cardNumber
-											.slice(12, 16)
-											.split("")
-											.join(" ")}
+										{card.cardNumber.slice(12, 16).split("").join(" ")}
 									</CardNumberText>
 								</CardNumberContainer>
 							</CreditCard>
